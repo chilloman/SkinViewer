@@ -24,7 +24,10 @@ namespace SkinViewer
         {
             string username = tbUsername.Text;
 
+            progressBar1.Value = 100;
+
             pictureBox1.Image = new System.Drawing.Bitmap(new System.IO.MemoryStream(new System.Net.WebClient().DownloadData("http://s3.amazonaws.com/MinecraftSkins/" + username + ".png")));
+            pictureBox2.Image = new System.Drawing.Bitmap(new System.IO.MemoryStream(new System.Net.WebClient().DownloadData("http://minecraft.aggenkeech.com/body.php?u=" + username)));
         }
 
         private void dlSkin_Click(object sender, EventArgs e)
@@ -35,6 +38,11 @@ namespace SkinViewer
             WebClient webClient = new WebClient();
             webClient.DownloadFile("http://s3.amazonaws.com/MinecraftSkins/" + username + ".png", username + "_skin.png");
             MessageBox.Show("Successfully downloaded " + username + "_skin.png in filepath: " + Application.StartupPath);
-        }  
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Link.LinkData.ToString());
+        }
     }
 }
